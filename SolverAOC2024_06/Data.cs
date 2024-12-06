@@ -41,7 +41,6 @@ namespace SolverAOC2024_06
           }
         }
       }
-
     }
 
     public object Solve1()
@@ -56,7 +55,7 @@ namespace SolverAOC2024_06
         {
           Guard.Rotate();
         }
-        if (!Fields.Keys.Contains(Guard.Location))
+        if (!Fields.ContainsKey(Guard.Location))
         {
           break;
         }
@@ -68,15 +67,13 @@ namespace SolverAOC2024_06
     private bool CanMove()
     {
       Point2D nextLocation = Guard.NextLocation();
-      if(Fields.ContainsKey(nextLocation) && Fields[nextLocation].Value != '#')
+      if(Fields.TryGetValue(nextLocation, out Field f))
+      {
+        return f.Value != '#';
+      } else
       {
         return true;
       }
-      if(!Fields.ContainsKey(nextLocation))
-      {
-        return true;
-      }
-      return false;
     }
 
     public object Solve2()
@@ -111,7 +108,7 @@ namespace SolverAOC2024_06
             loopCnt++;
             break;
           }
-          if (!Fields.Keys.Contains(Guard.Location))
+          if (!Fields.ContainsKey(Guard.Location))
           {
             break;
           }
