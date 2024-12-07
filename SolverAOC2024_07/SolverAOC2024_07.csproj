@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="DataBase.cs" />
+    <Compile Include="Equation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
