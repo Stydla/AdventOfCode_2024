@@ -10,7 +10,7 @@ namespace SolverAOC2024_08
   public class Program : BaseAdventSolver, IAdventSolver
   {
 
-    public override string SolverName => "SolverAOC2024_08"/*TODO: Task Name*/;
+    public override string SolverName => "Day 8: Resonant Collinearity"/*TODO: Task Name*/;
 
     public override string InputsFolderName => "SolverAOC2024_08";
 
