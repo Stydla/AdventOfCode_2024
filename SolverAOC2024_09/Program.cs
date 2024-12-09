@@ -10,7 +10,7 @@ namespace SolverAOC2024_09
   public class Program : BaseAdventSolver, IAdventSolver
   {
 
-    public override string SolverName => "SolverAOC2024_09"/*TODO: Task Name*/;
+    public override string SolverName => "Day 9: Disk Fragmenter"/*TODO: Task Name*/;
 
     public override string InputsFolderName => "SolverAOC2024_09";
 
