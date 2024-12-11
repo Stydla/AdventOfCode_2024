@@ -9,19 +9,23 @@ namespace SolverAOC2024_11
 {
   internal class Data : DataBase
   {
+    StoneLine StoneLine { get; set; }
+
     public Data(string input) : base(input)
     {
       // optionaly parse data
+      StoneLine = new StoneLine(input);
     }
 
     public object Solve1()
     {
-      throw new NotImplementedException();
+      return StoneLine.Blink(25);
+
     }
 
     public object Solve2()
     {
-      throw new NotImplementedException();
+      return StoneLine.Blink(75);
     }
 
 
