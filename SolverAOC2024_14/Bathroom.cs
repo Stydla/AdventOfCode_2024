@@ -101,19 +101,37 @@ namespace SolverAOC2024_14
 
     public bool IsEasterEgg()
     {
-      for(int i = 0; i < 20; i++)
+      int checkLines = 15;
+      int maxAllowedOnLine = 7;
+      int totalAllowed = checkLines * 3;
+
+      int sum = 0;
+      for(int i = 0; i < checkLines; i++)
       {
-        if(Robots.Where(x=>x.Location.Y == i).Count() > 4)
+        int cnt = Robots.Where(x => x.Location.Y == i).Count();
+        if (cnt > maxAllowedOnLine)
         {
           return false;
         }
+        sum += cnt;
       }
-      for (int i = 0; i < 20; i++)
+      if(sum > totalAllowed)
       {
-        if (Robots.Where(x => x.Location.X == i).Count() > 4)
+        return false;
+      }
+      sum = 0;
+      for (int i = 0; i < checkLines; i++)
+      {
+        int cnt = Robots.Where(x => x.Location.X == i).Count();
+        if (cnt > maxAllowedOnLine)
         {
           return false;
         }
+        sum += cnt;
+      }
+      if(sum > totalAllowed)
+      {
+        return false;
       }
       return true;
     }
