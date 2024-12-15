@@ -12,18 +12,53 @@ namespace SolverAOC2024_15
     public Data(string input) : base(input)
     {
       // optionaly parse data
+
+      
     }
 
     public object Solve1()
     {
-      throw new NotImplementedException();
+      Map map = new Map(Lines);
+      return map.Solve();
     }
 
     public object Solve2()
     {
-      throw new NotImplementedException();
+      List<string> newLines = Lines.ToList();
+      for(int i = 0; i < newLines.Count; i++)
+      {
+        string line = newLines[i];
+        StringBuilder sbNewLine = new StringBuilder();
+        for (int j = 0; j < line.Length; j++)
+        {
+          char c = line[j];
+          switch(c)
+          {
+            case '#':
+              sbNewLine.Append("##");
+              break;
+            case 'O':
+              sbNewLine.Append("[]");
+              break;
+            case '@':
+              sbNewLine.Append("@.");
+              break;
+            case '.':
+              sbNewLine.Append("..");
+              break;
+            default:
+              sbNewLine.Append(c);
+              break;
+          }
+        }
+        newLines[i] = sbNewLine.ToString();  
+      }
+
+      Map map = new Map(newLines);
+      return map.Solve2();
     }
 
 
   }
 }
+
