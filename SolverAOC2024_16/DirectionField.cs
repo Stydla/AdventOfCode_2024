@@ -35,23 +35,39 @@ namespace SolverAOC2024_16
       return ret;
     }
 
+    List<Tuple<DirectionField, long>> NeighbourCache { get; set; } = new List<Tuple<DirectionField, long>>();
+
     public IEnumerable<Tuple<DirectionField, long>> GetValuedNeighbours(HashSet<DirectionField> allFields)
     {
+      if (NeighbourCache.Count != 0) 
+      {
+        foreach(var f in NeighbourCache)
+        {
+          yield return f;
+        }
+        yield break;
+      } 
       Point2D target = Location.Move(Direction);
       if(allFields.TryGetValue(new DirectionField(target, Direction), out DirectionField forward))
       {
-        yield return new Tuple<DirectionField, long>(forward, 1);
+        var ret = new Tuple<DirectionField, long>(forward, 1);
+        NeighbourCache.Add(ret);
+        yield return ret;
       }
 
       
       if (allFields.TryGetValue(new DirectionField(Location, Direction.Prev()), out DirectionField left))
       {
-        yield return new Tuple<DirectionField, long>(left, 1000);
+        var ret = new Tuple<DirectionField, long>(left, 1000);
+        NeighbourCache.Add(ret);
+        yield return ret;
       }
 
       if (allFields.TryGetValue(new DirectionField(Location, Direction.Next()), out DirectionField right))
       {
-        yield return new Tuple<DirectionField, long>(right, 1000);
+        var ret = new Tuple<DirectionField, long>(right, 1000);
+        NeighbourCache.Add(ret);
+        yield return ret;
       }
     }
 
