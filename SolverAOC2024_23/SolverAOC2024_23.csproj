@@ -77,6 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Computer.cs" />
+    <Compile Include="ComputerGroup.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="Program.cs" />
