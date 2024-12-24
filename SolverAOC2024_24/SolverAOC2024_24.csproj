@@ -79,8 +79,14 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="DataBase.cs" />
+    <Compile Include="Gates\And.cs" />
+    <Compile Include="Gates\Gate.cs" />
+    <Compile Include="Gates\Or.cs" />
+    <Compile Include="Gates\Xor.cs" />
+    <Compile Include="Number.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Wire.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\AdventOfCode\Interfaces\Interfaces.csproj">
