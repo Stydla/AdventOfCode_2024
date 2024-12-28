@@ -22,13 +22,19 @@ namespace SolverAOC2024_24
 
     public int SwappedGatesCount;
 
+    public Number NumberX = new Number('X');
+    public Number NumberY = new Number('Y');
     public Number NumberZ = new Number('Z');
     public long X;
     public long Y;
 
+    
+
     public Data(string input) : base(input)
     {
       // optionaly parse data
+
+      int gateId = 0;
 
       bool part1 = true;
       for (int i = 0; i < Lines.Count; i++)
@@ -74,7 +80,7 @@ namespace SolverAOC2024_24
           Wire w2 = GetWire(inputWire2);
           Wire w3 = GetWire(outputWire);
 
-          Gate gate = Gate.Create(gateString, w1, w2, w3);
+          Gate gate = Gate.Create(gateId++ , gateString, w1, w2, w3);
           AllGates.Add(gate);
 
         }
@@ -88,6 +94,18 @@ namespace SolverAOC2024_24
       {
         w.Number = NumberZ;
       }
+      long xn = GetNumber('x');
+      foreach (Wire x in WiresX)
+      {
+        x.Number = NumberX;
+      }
+      long yn = GetNumber('y');
+      foreach (Wire y in WiresY)
+      {
+        y.Number = NumberY;
+      }
+      NumberY.Value = yn;
+      NumberX.Value = xn;
     }
 
     public Wire GetWire(string name)
@@ -104,7 +122,7 @@ namespace SolverAOC2024_24
     public object Solve1()
     {
       SolveZ();
-      long res = GetNumber('z');
+      long res = NumberZ.Value;
       return res;
     }
 
@@ -114,6 +132,21 @@ namespace SolverAOC2024_24
       {
         wire.Solve();
       } 
+    }
+
+    private string GetGraphviz()
+    {
+      StringBuilder sb = new StringBuilder();
+
+      foreach (Gate g in AllGates)
+      {
+        sb.AppendLine($"{g.Input1.Name} -> {g.GateType}_{g.ID};");
+        sb.AppendLine($"{g.Input2.Name} -> {g.GateType}_{g.ID};");
+        sb.AppendLine($"{g.GateType}_{g.ID} -> {g.Output.Name};");
+
+      }
+
+      return sb.ToString();
     }
 
 
@@ -150,8 +183,70 @@ namespace SolverAOC2024_24
     }
 
 
+    private void Test()
+    {
+      SolveZ();
+
+      Debug.WriteLine($"{NumberX.Value} + {NumberY.Value} = {NumberZ.Value}");
+      
+    }
+
+    private void SwapGatesOutput(Gate g1, Gate g2)
+    {
+      Wire w1 = g1.Output;
+      Wire w2 = g2.Output;
+
+      w1.OutputGate = g2;
+      w2.OutputGate = g1;
+
+      g1.Output = w2;
+      g2.Output = w1;
+
+      
+
+    }
+
     public object Solve2()
     {
+
+      if(SwappedGatesCount == 4)
+      {
+
+        //for (int i = 0; i < 45; i++)
+        //{
+        //  Debug.WriteLine($"i = {i}");
+        //  NumberX.Value = 0;
+        //  NumberY.Value = (1L << i) - 1;
+
+        //  Test();
+
+        //  Debug.WriteLine("");
+        //}
+
+        //string graphviz = GetGraphviz();  
+
+        Gate g1 = AllGates.First(x => x.ID == 119);
+        Gate g2 = AllGates.First(x => x.ID == 28);
+        SwapGatesOutput(g1, g2);
+
+        Gate g3 = AllGates.First(x => x.ID == 141);
+        Gate g4 = AllGates.First(x => x.ID == 203);
+        SwapGatesOutput(g3, g4);
+
+        Gate g5 = AllGates.First(x => x.ID == 213);
+        Gate g6 = AllGates.First(x => x.ID == 88);
+        SwapGatesOutput(g5, g6);
+
+        Gate g7 = AllGates.First(x => x.ID == 52);
+        Gate g8 = AllGates.First(x => x.ID == 210);
+        SwapGatesOutput(g7, g8);
+
+        List<Gate> gates = new List<Gate>() { g1, g2, g3, g4, g5, g6, g7, g8 };
+
+        return string.Join(",", gates.OrderBy(x => x.Output.Name).Select(x => x.Output.Name));
+      }
+      
+     
       string res = "";
 
       HashSet<Gate> swapped = new HashSet<Gate>();

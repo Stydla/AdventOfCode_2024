@@ -11,7 +11,7 @@ namespace SolverAOC2024_24
 
     public char ID { get; }
 
-    public long Value { get; private set; }
+    public long Value { get; set; }
 
     public Number(char id)
     {
@@ -28,7 +28,11 @@ namespace SolverAOC2024_24
       {
         Value &= ~(1L << index);
       }
+    }
 
+    public bool GetBit(int index)
+    {
+      return (Value & (1L << index)) != 0;
     }
   }
 }

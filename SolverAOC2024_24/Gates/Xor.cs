@@ -8,9 +8,11 @@ namespace SolverAOC2024_24.Gates
 {
   internal class Xor : Gate
   {
-    public Xor(Wire input1, Wire input2, Wire output) : base(input1, input2, output)
+    public Xor(int gateId, Wire input1, Wire input2, Wire output) : base(gateId, input1, input2, output)
     {
     }
+
+    public override string GateType => "XOR";
 
     public override bool Execute()
     {

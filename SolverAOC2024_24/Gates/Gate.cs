@@ -16,7 +16,13 @@ namespace SolverAOC2024_24.Gates
 
     public Wire Output { get; set; }
 
-    public Gate(Wire input1, Wire input2, Wire output)
+    public abstract string GateType { get; }
+
+    public int ID { get; }
+
+    private static int IDCounter = 0;
+
+    public Gate(int gateId, Wire input1, Wire input2, Wire output)
     {
       Input1 = input1;
       input1.InputGate = this;
@@ -24,7 +30,10 @@ namespace SolverAOC2024_24.Gates
       input2.InputGate = this;
       Output = output;
       output.OutputGate = this;
+      ID = gateId;
     }
+
+    
 
     public void Solve()
     {
@@ -49,26 +58,56 @@ namespace SolverAOC2024_24.Gates
           Output.SolveDown(visited);
         }
       }
-      
     }
+
+    public int ChildHeight()
+    {
+      if (Output == null)
+      {
+        return 0;
+      }
+      return Output.ChildHeight() + 1;
+    }
+
+    public int ParentHeight()
+    {
+      if(Input1 == null && Input2 == null)
+      {
+        return 0;
+      }
+
+      if(Input1 == null)
+      {
+        return Input2.ParentHeight() + 1;
+      }
+
+      if(Input1 == null)
+      {
+        return Input1.ParentHeight() + 1;
+      }
+
+      return Math.Max(Input1.ParentHeight(), Input2.ParentHeight()) + 1;
+    }
+
 
     public abstract bool Execute();
 
 
-    public static Gate Create(string gateType, Wire input1, Wire input2, Wire output)
+    public static Gate Create(int gateId, string gateType, Wire input1, Wire input2, Wire output)
     {
       switch(gateType)
       {
         case "AND":
-          return new And(input1, input2, output);
+          return new And(gateId, input1, input2, output);
         case "OR":
-          return new Or(input1, input2, output);
+          return new Or(gateId, input1, input2, output);
         case "XOR":
-          return new Xor(input1, input2, output);
+          return new Xor(gateId, input1, input2, output);
         default:
           throw new Exception("Unknown gate type");
       }
     }
+
 
   }
 }

@@ -8,10 +8,11 @@ namespace SolverAOC2024_24.Gates
 {
   internal class Or : Gate
   {
-    public Or(Wire input1, Wire input2, Wire output) : base(input1, input2, output)
+    public Or(int gateId, Wire input1, Wire input2, Wire output) : base(gateId, input1, input2, output)
     {
     }
 
+    public override string GateType => "OR_";
     public override bool Execute()
     {
       bool prev = Output.Value;

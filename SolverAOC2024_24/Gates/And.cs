@@ -8,10 +8,10 @@ namespace SolverAOC2024_24.Gates
 {
   internal class And : Gate
   {
-    public And(Wire input1, Wire input2, Wire output) : base(input1, input2, output)
+    public And(int gateId, Wire input1, Wire input2, Wire output) : base(gateId, input1, input2, output)
     {
     }
-
+    public override string GateType => "AND";
     public override bool Execute()
     {
       bool prev = Output.Value;

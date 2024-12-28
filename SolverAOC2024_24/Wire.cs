@@ -19,6 +19,10 @@ namespace SolverAOC2024_24
     {
       get
       {
+        if(Number != null)
+        {
+          return Number.GetBit(Index);
+        }
         return _Value;
       }
       set
@@ -60,6 +64,24 @@ namespace SolverAOC2024_24
       {
         InputGate.SolveDown(visited);
       }
+    }
+
+    public int ChildHeight()
+    {
+      if (InputGate == null)
+      {
+        return 0;
+      }
+      return InputGate.ChildHeight() + 1;
+    }
+
+    public int ParentHeight()
+    {
+      if (OutputGate == null)
+      {
+        return 0;
+      }
+      return OutputGate.ParentHeight() + 1;
     }
 
     public override string ToString()
