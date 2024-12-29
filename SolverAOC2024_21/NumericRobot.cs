@@ -40,10 +40,6 @@ namespace SolverAOC2024_21
 
     }
 
-    public override void Fix()
-    {
-      CodeMap["37"] = "<<^^A";
-    }
   }
  
 
